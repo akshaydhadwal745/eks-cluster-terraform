@@ -1,0 +1,27 @@
+data "aws_eks_cluster" "eks" {
+  name = aws_eks_cluster.eks.name
+}
+
+data "aws_eks_cluster_auth" "eks" {
+  name = aws_eks_cluster.eks.name
+}
+
+
+data "aws_security_group" "eks_cluster_sg" {
+  filter {
+    name   = "tag:aws:eks:cluster-name"
+    values = [aws_eks_cluster.eks.name]
+  }
+
+  vpc_id = aws_vpc.main.id # Replace this with the actual VPC ID where EKS is deployed
+}
+
+resource "aws_security_group_rule" "allow_custom_ingress" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"  # Must be a string
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = data.aws_security_group.eks_cluster_sg.id
+  description       = "Allow all inbound traffic"
+}
