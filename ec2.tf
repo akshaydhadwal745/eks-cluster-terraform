@@ -44,11 +44,10 @@ resource "aws_instance" "main_instance" {
               curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
               chmod 777 kubectl
               mv kubectl /usr/bin
-              aws eks --region ap-south-1 update-kubeconfig --name EKS-test
+              #aws eks --region ap-south-1 update-kubeconfig --name EKS-test
               EOF
   
   tags = {
     Name = "Main Instance"
   }
-  depends_on = [ aws_eks_cluster.eks ]
 }
