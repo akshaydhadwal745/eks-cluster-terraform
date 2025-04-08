@@ -16,6 +16,8 @@ resource "aws_subnet" "public" {
   availability_zone       = "ap-south-1a"
   tags = {
     Name = "public-subnet"
+    "kubernetes.io/cluster/EKS-test" = "shared"
+    "kubernetes.io/role/elb"      = "1"
   }
 }
 
@@ -26,7 +28,9 @@ resource "aws_subnet" "public2" {
   map_public_ip_on_launch = true
   availability_zone       = "ap-south-1b"
   tags = {
-    Name = "public-subnet"
+    Name = "public-subnet",
+    "kubernetes.io/cluster/EKS-test" = "shared"
+    "kubernetes.io/role/elb"      = "1"
   }
 }
 
