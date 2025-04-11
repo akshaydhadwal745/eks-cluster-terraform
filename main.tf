@@ -16,7 +16,7 @@ resource "aws_subnet" "public" {
   availability_zone       = "ap-south-1a"
   tags = {
     Name                             = "public-subnet"
-    "kubernetes.io/cluster/EKS-test" = "shared"
+    "kubernetes.io/cluster/EKS-test" = "owned"
     "kubernetes.io/role/elb"         = "1"
   }
 }
@@ -29,7 +29,7 @@ resource "aws_subnet" "public2" {
   availability_zone       = "ap-south-1b"
   tags = {
     Name                             = "public-subnet",
-    "kubernetes.io/cluster/EKS-test" = "shared"
+    "kubernetes.io/cluster/EKS-test" = "owned"
     "kubernetes.io/role/elb"         = "1"
   }
 }
@@ -43,6 +43,8 @@ resource "aws_subnet" "private" {
   availability_zone = "ap-south-1a"
   tags = {
     Name = "private-subnet"
+     "kubernetes.io/cluster/EKS-test" = "owned"
+    "kubernetes.io/role/internal-elb" = "1"
   }
 }
 
@@ -53,6 +55,8 @@ resource "aws_subnet" "private2" {
   availability_zone = "ap-south-1b"
   tags = {
     Name = "private-subnet"
+    "kubernetes.io/cluster/EKS-test" = "owned"
+    "kubernetes.io/role/internal-elb" = "1"
   }
 }
 
