@@ -1,9 +1,3 @@
-# Replace with your actual hosted zone ID and domain
-variable "domain_name" {
-  type = string
-  default = "chandigarhtourism.site"
-}
-
 # Get the Route 53 hosted zone
 data "aws_route53_zone" "selected" {
   name         = var.domain_name
