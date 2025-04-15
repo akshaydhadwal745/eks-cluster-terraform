@@ -2,6 +2,6 @@ output "cluster_endpoint" {
   value = aws_eks_cluster.eks.endpoint
 }
 
-# output "Instance-IP" {
-#     value = aws_instance.main_instance.public_ip
-# }
+output "EKS_Auth" {
+  value = "aws eks --region ap-south-1 update-kubeconfig --name EKS-test"
+}

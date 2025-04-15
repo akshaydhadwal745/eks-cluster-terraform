@@ -1,0 +1,46 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: backend-gateway
+spec:
+  selector:
+    istio: ingressgateway # use Istio's default ingress gateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: backend-routing
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - backend-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /backend-1
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: backend-1-service
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: /backend-2
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: backend-2-service
+        port:
+          number: 80
+
